@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movies ratings visualization</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Movies ratings visualization">
+  <meta name="author" content="Adrien Bouyssi">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Movies ratings visualization</h1>
+    <h2></h2>
+    <p>Adrien Bouyssi<br/>Data analysis student</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Purpose &amp; Accessibility</h2>
+  </hgroup>
+  <article data-timings="">
+    <h1>Purpose</h1>
+
+<ul>
+<li>The shiny app I developed enables the user to query the movies dataset from the IMDB website. It is included in the ggplot2 package (movies dataset). The official documentation for this dataset is available at this address: <a href="http://docs.ggplot2.org/0.9.3.1/movies.html">http://docs.ggplot2.org/0.9.3.1/movies.html</a></li>
+</ul>
+
+<h1>Accessibility</h1>
+
+<ul>
+<li>The app is hosted on the Shiny.io server at the following address: <a href="https://adrienbouyssi.shinyapps.io/CourseProject/">https://adrienbouyssi.shinyapps.io/CourseProject/</a></li>
+</ul>
+
+<h1>Outline</h1>
+
+<ul>
+<li>I will first introduce the functionality of the app and the way it is organized on the screen, then show how parameters can be selected by the user and finally present examples of results which could be obtained.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Overview</h2>
+  </hgroup>
+  <article data-timings="">
+    <h1>Functionality</h1>
+
+<ul>
+<li>This app allows the user to query selected movies from the movies dataset based on their release year, average ratings as well as genre classification using the sidebar panel. These parameters will be displayed &quot;live&quot; in the &#39;Parameters selected&#39; part of the main panel for review (before pressing the &#39;Submit&#39; button). After the &#39;Submit&#39; button is pressed, the ratings scatter plot and underlying movies table are displayed in the main panel.</li>
+</ul>
+
+<h1>Layout</h1>
+
+<ul>
+<li><p>The screen layout is divided into:</p>
+
+<p>1) a sidebar panel containing the user-specified parameters (release year, rating, genre), and</p>
+
+<p>2) a main panel with the app documentation, a display of parameters entered by the user (for control and transparency) and the results of the server calculations, i.e. the scatter plot of average user-given rating by total number of votes cast (movies are organized by release year - cf. legend) and the table of the selected movies data for identifying which movie is represented by each point in the scatter plot and providing additional data (mpaa rating, budget, length).</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Parameters specifications and review</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>The sidebar panel is dedicated to defining parameters for querying the movies dataset.</p></li>
+<li><p>The user can pick a range of release years and user-given ratings using the appropriate sliders.</p></li>
+<li><p>The user can also filter the dataset based on movies genre using the set of checkboxes. It is possible to include one or several genres. Movies may be listed under several genres themselves, the results will return movies that satisfy all genres selected.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Results review</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>Below are two examples of results, that can be achieved using the app:</p>
+
+<p>1) Good action movies (i.e. with ratings &gt;= 5) released from 2000 to 2005</p>
+
+<p>2) Bad comedies (i.e. with ratings &lt;= 5) released from 1990 to 2005</p></li>
+</ul>
+
+<p><img src="assets/fig/unnamed-chunk-1-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Purpose &amp; Accessibility'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Overview'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Parameters specifications and review'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Results review'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

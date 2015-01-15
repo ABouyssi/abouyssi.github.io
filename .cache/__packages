@@ -1,0 +1,7 @@
+base
+ggplot2
+proto
+gsubfn
+DBI
+RSQLite
+sqldf

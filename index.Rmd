@@ -1,0 +1,126 @@
+---
+title       : Movies ratings visualization
+subtitle    : 
+author      : Adrien Bouyssi
+job         : Data analysis student
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+
+--- 
+## Purpose & Accessibility
+
+# Purpose
+
+* The shiny app I developed enables the user to query the movies dataset from the IMDB website. It is included in the ggplot2 package (movies dataset). The official documentation for this dataset is available at this address: http://docs.ggplot2.org/0.9.3.1/movies.html
+
+# Accessibility
+
+* The app is hosted on the Shiny.io server at the following address: https://adrienbouyssi.shinyapps.io/CourseProject/
+
+# Outline
+
+* I will first introduce the functionality of the app and the way it is organized on the screen, then show how parameters can be selected by the user and finally present examples of results which could be obtained.
+
+---
+## Overview
+
+# Functionality
+
+* This app allows the user to query selected movies from the movies dataset based on their release year, average ratings as well as genre classification using the sidebar panel. These parameters will be displayed "live" in the 'Parameters selected' part of the main panel for review (before pressing the 'Submit' button). After the 'Submit' button is pressed, the ratings scatter plot and underlying movies table are displayed in the main panel.
+
+# Layout
+
+* The screen layout is divided into:
+
+  1) a sidebar panel containing the user-specified parameters (release year, rating, genre), and
+  
+  2) a main panel with the app documentation, a display of parameters entered by the user (for control and transparency) and the results of the server calculations, i.e. the scatter plot of average user-given rating by total number of votes cast (movies are organized by release year - cf. legend) and the table of the selected movies data for identifying which movie is represented by each point in the scatter plot and providing additional data (mpaa rating, budget, length).
+
+--- 
+## Parameters specifications and review
+
+* The sidebar panel is dedicated to defining parameters for querying the movies dataset.
+
+* The user can pick a range of release years and user-given ratings using the appropriate sliders.
+
+* The user can also filter the dataset based on movies genre using the set of checkboxes. It is possible to include one or several genres. Movies may be listed under several genres themselves, the results will return movies that satisfy all genres selected.
+
+
+--- 
+## Results review
+
+* Below are two examples of results, that can be achieved using the app:
+
+  1) Good action movies (i.e. with ratings >= 5) released from 2000 to 2005
+  
+  2) Bad comedies (i.e. with ratings <= 5) released from 1990 to 2005
+  
+
+```{r, echo=FALSE, results='hide'}
+# Import ggplot2 package for plotting and contains movies data
+#install.packages("ggplot2");
+library(ggplot2);
+library(grid);
+library(tcltk);
+
+# Import sqldf to make SQL queries on the dataset
+library(sqldf);
+
+# Load movies data into data frame
+imdb <- as.data.frame(movies);
+
+# Write SQL select statement
+sql <- "SELECT title, year, length, budget, rating, votes, mpaa
+      FROM imdb
+      WHERE year >= 2000
+      AND year <= 2005
+      AND rating >= 5
+      AND rating <= 10
+      AND Action = 1";
+
+# Put the results 
+DataForPlot <- sqldf(sql);
+
+# Plot the ratings chart using ggplot2 package
+p1 <- ggplot(data = DataForPlot, aes(x = votes, y = rating));
+p1 <- p1 + geom_point(aes(color = factor(year)));
+p1 <- p1 + ylim(c(0, 10));
+p1 <- p1 + ggtitle("Good action movies (2000-2005)");
+p1 <- p1 + xlab("Number of votes");
+p1 <- p1 + ylab("Average rating");
+p1 <- p1 + labs(color = "Release year");
+p1 <- p1 + theme(plot.margin = unit(c(0, 0, 4, 0), "cm"));
+#p1 <- p1 + theme(rect = element_rect(size = 10));
+
+# Write SQL select statement
+sql <- "SELECT title, year, length, budget, rating, votes, mpaa
+      FROM imdb
+      WHERE year >= 1990
+      AND year <= 2005
+      AND rating >= 0
+      AND rating <= 5
+      AND Comedy = 1";
+
+# Put the results 
+DataForPlot <- sqldf(sql);
+
+p2 <- ggplot(data = DataForPlot, aes(x = votes, y = rating));
+p2 <- p2 + geom_point(aes(color = factor(year)));
+p2 <- p2 + ylim(c(0, 10));
+p2 <- p2 + ggtitle("Bad comedies (1990-2005)");
+p2 <- p2 + xlab("Number of votes");
+p2 <- p2 + ylab("Average rating");
+p2 <- p2 + labs(color = "Release year");
+p2 <- p2 + theme(plot.margin = unit(c(0, 0, 4, 0), "cm"));
+
+require(grid);
+pushViewport(viewport(layout = grid.layout(1, 2)));
+print(p1, vp = viewport(layout.pos.row = 1, layout.pos.col = 1));
+print(p2, vp = viewport(layout.pos.row = 1, layout.pos.col = 2));
+
+
+```
